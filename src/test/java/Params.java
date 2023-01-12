@@ -20,22 +20,25 @@ public class Params {
 
     }
 
-    @Parameterized.Parameters(name = "Тестовые данные: {0} {1} {3}")
-    public static Object[][] getSumData() {
+    @Parameterized.Parameters(name = "Тестовые данные: {0} {1}")
+    public static Object[][] getData() {
         return new Object[][]{
                 {true, "Самец"},
-                {false, "Самка"},
-                {false, "Неопределен"}
+                {false, "Самка"}
         };
     }
 
     @Test
     public void lionGenderTest() throws Exception {
+        Lion lion = new Lion(sex, feline);
+        boolean actual = lion.doesHaveMane();
+        assertEquals(isHasMane, actual);
+    }
 
+    @Test
+    public void lionInvalidGenderTest() throws Exception {
         try {
-            Lion lion = new Lion(sex, feline);
-            boolean actual = lion.doesHaveMane();
-            assertEquals(isHasMane, actual);
+            Lion lion = new Lion("Неопределен", feline);
         } catch (Exception ex) {
             assertEquals("Используйте допустимые значения пола животного - самец или самка", ex.getMessage());
         }
